@@ -173,7 +173,6 @@
 
       <div class="answer-box">
         <h3>Task 1 Question: How many transactions fell on Fridays?</h3>
-        <h3>Answer</h3>
         <div class="explanation">
           <p>Answer: A total of 6,553 transactions fell on Fridays in between 1 January 2015 and 31 August 2026.</p>
 
@@ -182,7 +181,6 @@
       </div>
     </section>
 
-    <!-- Task 2 -->
     <section class="task-card" id="task2-section">
       <div class="task-header">
         <h2>Task 2: Monthly Sales, Off-Plan vs Existing Properties</h2>
@@ -195,22 +193,15 @@
       <div id="vis2" class="chart-container"></div>
 
       <div class="answer-box p2-box">
-        <h2>Task 2 Question: In which month is the number of off-plan sales the highest, and how many off-plan sales is it?</h2>
-        <h3>Answer</h3>
-        <div class="answer-highlight">
-          September 2025, with 706 off-plan sales.
-        </div>
+        <h3>Task 2 Question: In which month is the number of off-plan sales the highest, and how many off-plan sales is it?</h3>
         <div class="explanation">
-          <ul>
-            <li>We used a line chart because the data is a time series, and two lines make it easy to compare off-plan and existing sales over time.</li>
-            <li>The x-axis covers every month from January 2015 to August 2026 and is labelled by year.</li>
-            <li>Off-plan sales have been higher than existing sales in every month since January 2024.</li>
-          </ul>
+          <p>Answer: September 2025 recorded the highest off-plan sales, with 706 sales.</p>
+
+          <p>Explanation: Tracking the orange line representing Off-Plan Properties from January 2015 to August 2026, the curve reaches its highest peak in September 2025, just above the 700 gridline on the y-axis. This point is highlighted and labelled on the chart as "Peak: September 2025 (706 sales)".</p>
         </div>
       </div>
     </section>
 
-    <!-- Task 3 -->
     <section class="task-card" id="task3-section">
       <div class="task-header">
         <h2>Task 3: Map of Prices Across Dubai's Communities</h2>
@@ -222,22 +213,14 @@
 
       <div id="vis3" class="chart-container"></div>
 
-      <div class="answer-box p3-box">
-        <h3> Which community has the largest number of sales of units and villas, and how many sales is it? Is this visualization effective in finding this community? Why? </h3>
-        <h3>Answer</h3>
-        <div class="answer-highlight" style="color: #1c5cab;">
-          Al Barsha South Fourth (Jumeirah Village Circle), with 3,925 sales.
-        </div>
+        <div class="answer-box p3-box">
+        <h3>Task 3 Question: Which community has the largest number of sales of units and villas, and how many sales is it? Is this visualization effective in finding this community? Why?</h3>
         <div class="explanation">
-          <p>It is followed by Business Bay (3,634) and Marsa Dubai (2,955). Its median price is 12,923 AED/m².</p>
-          <p><strong>Is the map effective for finding it?</strong> No. The colour shows the median price, not the number of sales, so the number of sales is only in the tooltip and you would have to hover over every community to find the highest one. Bigger shapes also get more attention, but the size of a shape is just its land area: the large desert communities stand out even though most of them have no sales, while Al Barsha South Fourth is a normal-sized, mid-priced community. A bar chart sorted by number of sales would show it straight away.</p>
-          <p><strong>Design choices</strong></p>
-          <ul>
-            <li>Communities with fewer than 10 sales are left grey, because a median of only a few sales is not reliable.</li>
-            <li>The prices are skewed: most communities are between about 11,000 and 25,000 AED/m², but a few go up to 75,000. So instead of a linear scale we used 5 colour classes with breaks at 11,000, 14,000, 18,000 and 25,000, which puts about 15 communities in each colour.</li>
-            <li>All 226 communities are drawn in grey first, so communities with no sales are still visible on the map.</li>
-            <li>Mercator projection, fitted to the community boundaries so the whole emirate is shown.</li>
-          </ul>
+          <p>Answer: Al Barsha South Fourth (Jumeirah Village Circle) recorded the largest number of unit and villa sales, with 3,925 sales.</p>
+
+          <p>Explanation: Hovering over the communities on the map, the tooltip for Al Barsha South Fourth, south-east of Dubai Marina, shows 3,925 unit and villa sales with a median price of 12,923 AED/m², more than any other community. The next highest are Business Bay with 3,634 sales and Marsa Dubai with 2,955.</p>
+
+          <p>Effectiveness: The map is not effective for finding this community. The colour of each community shows its median price per m², not its number of sales, so the number of sales can only be read from the tooltip, one community at a time. Al Barsha South Fourth is drawn in a mid-range blue (11,000–14,000 AED/m²) that it shares with 14 other communities, so nothing on the map makes it stand out, and larger shapes draw more attention even though their size only reflects land area. A bar chart sorted by number of sales would show it straight away.</p>
         </div>
       </div>
     </section>
@@ -245,7 +228,6 @@
   </div>
 
   <script>
-    // Task 1: transactions by day of the week
     const spec1 = {
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
       "title": {
@@ -310,7 +292,6 @@
       ]
     };
 
-    // Task 2: monthly sales, off-plan vs existing
     const spec2 = {
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
       "title": {
@@ -531,11 +512,8 @@
                  "format": {"type": "json", "property": "features"}};
     const TX  = {"url": "https://raw.githubusercontent.com/sharios/CS333/main/2026-27/Part%202/transactions.csv",
                  "format": {"type": "csv", "parse": {"instance_date": "utc:'%Y-%m-%d'", "meter_sale_price": "number"}}};
-    // box around the built-up city; keep this point order (d3 reads the other direction as "whole globe minus the box")
     const CITY_BOX = [[54.98, 24.93], [54.98, 25.37], [55.47, 25.37], [55.47, 24.93], [54.98, 24.93]];
 
-    // Street map underneath (OpenStreetMap tiles), like the background of the Tableau map in Part 1.
-    // The main map uses Web Mercator with a fixed scale/translate, so the tiles and the community shapes line up exactly.
     const MAP_W = 545, MAP_H = 530, ZOOM = 11;
     const merc = deg => Math.log(Math.tan(Math.PI / 4 + deg * Math.PI / 360));
     const S  = Math.min(MAP_W / ((55.47 - 54.98) * Math.PI / 180), MAP_H / (merc(25.37) - merc(24.93)));
@@ -549,7 +527,7 @@
         tiles.push({"url": `https://tile.openstreetmap.org/${ZOOM}/${i}/${j}.png`,
                     "x": K * (i * 256 - WORLD / 2) + TX0, "y": K * (j * 256 - WORLD / 2) + TY0});
 
-    const baseLayer = {               // all 226 communities, grey, "0 sales" tooltip
+    const baseLayer = {
       "data": GEO,
       "transform": [{"calculate": "0", "as": "sales"}, {"calculate": "'no sales'", "as": "median_txt"}],
       "mark": {"type": "geoshape", "fill": "#dcdcdc", "stroke": "white", "strokeWidth": 0.5, "clip": true},
@@ -559,7 +537,7 @@
         {"field": "median_txt", "type": "nominal", "title": "Median price (AED/m²)"}
       ]}
     };
-    const salesLayer = {              // every community with at least 1 sale; fewer than 10 drawn grey
+    const salesLayer = {
       "data": TX,
       "transform": [
         {"filter": "datum.instance_date >= utc(2015, 0, 1) && datum.instance_date <= utc(2026, 7, 31)"},
@@ -616,7 +594,6 @@
       ]
     };
 
-    // Render specifications (one shared loader, so the 18 MB CSV is downloaded only once)
     const baseLoader = vega.loader();
     const cache = {};
     const loader = Object.create(baseLoader);
